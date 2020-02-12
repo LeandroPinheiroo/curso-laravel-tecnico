@@ -88,8 +88,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Categorias</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i>Produtos</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i>*</a></li>
           </ul>
         </li>
       </ul>
