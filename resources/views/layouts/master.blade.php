@@ -10,6 +10,7 @@
 
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  @stack('stylesheets')
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
@@ -30,6 +31,9 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')   }}">  
   
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
@@ -65,9 +69,11 @@
           <!-- Messages: style can be found in dropdown.less-->
           <!-- User Account: style can be found in dropdown.less -->
           <li>
-            <a href="#" class="button">
-              <span class="hidden-xs">Sair</span>
-            </a>
+            <form>
+              <button type="submit" class = "btn btn-primary" name = "logout">
+                  Sair
+              </button>
+            </form>
           </li>          
         </ul>
       </div>
@@ -88,7 +94,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i>*</a></li>
+            <li><a href=""><i class="fa fa-circle-o"></i>*</a></li>
           </ul>
         </li>
       </ul>
@@ -127,6 +133,7 @@
 <!-- ./wrapper -->
 
 <!-- ./wrapper -->
+@stack('scripts')
 
 <!-- jQuery 3 -->
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
@@ -148,6 +155,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('js/demo.js') }}"></script>
 
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
