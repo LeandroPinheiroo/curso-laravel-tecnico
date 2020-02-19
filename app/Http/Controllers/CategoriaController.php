@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DataTables\CategoriaDataTable;
+use App\Categoria;
 
 class CategoriaController extends Controller
 {
@@ -11,9 +13,10 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(CategoriaDataTable $dataTable)
     {
-        return view('categoria.index');
+        $categoria = Categoria::get();
+        return $dataTable->render('categoria.index',['categoria'=>$categoria]);
     }
 
     /**
