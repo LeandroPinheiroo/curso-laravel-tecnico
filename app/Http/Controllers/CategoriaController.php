@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\DataTables\CategoriaDataTable;
 use App\Categoria;
+use App\Http\Requests\StoreCategoria;
 
 class CategoriaController extends Controller
 {
@@ -26,7 +27,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('categoria.create');
     }
 
     /**
@@ -35,9 +36,16 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoria $request)
     {
-        //
+        $request->validated();
+
+        $categoria = new Categoria();
+        $categoria->nome = $request->input('nome');
+        $categoria->descricao = $request->descricao;
+        $categoria->save();
+
+        return redirect()->route('categorias.index');
     }
 
     /**

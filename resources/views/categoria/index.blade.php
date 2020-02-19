@@ -2,8 +2,9 @@
 
 @push('stylesheets')
 
-	<link href=" {{ asset('css/datatables/dataTables.buttons.min.css') }} " rel="stylesheets" />
-	<link href=" {{ asset('css/datatables/dataTables.responsive.min.css') }} " rel="stylesheets"/>
+	<link href=" {{ asset('css/datatables/dataTables.buttons.min.css') }} " rel="stylesheet" />
+	<link href=" {{ asset('css/datatables/dataTables.responsive.min.css') }} " rel="stylesheet"/>
+
 
 @endpush
 
