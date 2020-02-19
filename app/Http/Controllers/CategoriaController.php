@@ -39,7 +39,7 @@ class CategoriaController extends Controller
     public function store(StoreCategoria $request)
     {
         $request->validated();
-
+        
         $categoria = new Categoria();
         $categoria->nome = $request->input('nome');
         $categoria->descricao = $request->descricao;
