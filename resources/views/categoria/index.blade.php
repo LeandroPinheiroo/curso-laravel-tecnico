@@ -10,6 +10,32 @@
 
 @section('body')
 
+@foreach($categorias as $categoria)
+	<form action="{{ route('categorias.destroy',$categoria->id) }}" method="POST">
+		{{ method_field('DELETE')}}
+		@csrf
+		<div class="modal fade" tabindex="-1" id="apaga{{ $categoria->id }}" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">Modal title</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p>Deseja apagar a categoria {{ $categoria->nome }}?</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="submit" class="btn btn-danger">Apagar</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</form>
+@endForeach
+
 @if(Session::has('success'))
 	<div class="alert alert-success alert-dimissible fade show">
 		{{ Session::get('success') }}

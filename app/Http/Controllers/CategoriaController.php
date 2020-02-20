@@ -16,8 +16,8 @@ class CategoriaController extends Controller
      */
     public function index(CategoriaDataTable $dataTable)
     {
-        $categoria = Categoria::get();
-        return $dataTable->render('categoria.index',['categoria'=>$categoria]);
+        $categorias = Categoria::get();
+        return $dataTable->render('categoria.index',['categorias' => $categorias]);
     }
 
     /**
