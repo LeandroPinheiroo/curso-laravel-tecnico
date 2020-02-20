@@ -9,6 +9,16 @@
 @endpush
 
 @section('body')
+
+@if(Session::has('success'))
+	<div class="alert alert-success alert-dimissible fade show">
+		{{ Session::get('success') }}
+		<button type="button" class="close" data-dismiss='alert' arial-label="Close">
+			<span aria-hidden = "true"> &times; </span>
+		</button>
+	</div>
+@endIF
+
 <form action="{{ route('categorias.create') }}">
 	@csrf
 	<div class="row">

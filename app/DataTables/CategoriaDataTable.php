@@ -20,7 +20,15 @@ class CategoriaDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables()
-            ->eloquent($query);
+            ->eloquent($query)
+            ->addColumn('action',function(Categoria $model){
+                return view(
+
+                    'categoria.componentes.buttons_categoria',
+                        [ 'model' => $model ]
+
+                )->render();
+            });
     }
 
     /**

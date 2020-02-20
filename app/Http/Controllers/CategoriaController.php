@@ -45,7 +45,8 @@ class CategoriaController extends Controller
         $categoria->descricao = $request->descricao;
         $categoria->save();
 
-        return redirect()->route('categorias.index');
+        return redirect()->route('categorias.index')
+                        ->withSuccess('Categoria cadastrada');
     }
 
     /**
@@ -67,7 +68,9 @@ class CategoriaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+
+        return view('categoria.update',['categoria'=>$categoria]);
     }
 
     /**
@@ -77,9 +80,18 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreCategoria $request, $id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+
+        $request->validated();
+
+        $categoria->nome = $request->nome;
+        $categoria->descricao = $request->descricao;
+        $categoria->update();
+
+        return redirect()->route('categorias.index')
+                         ->withSuccess('Categoria atualizada');
     }
 
     /**
