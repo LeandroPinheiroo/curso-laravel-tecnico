@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/','HomeController@index')->name('index');
 
 Route::resource('categorias','CategoriaController');
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

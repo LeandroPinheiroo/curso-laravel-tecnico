@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
+        "laravel/ui": "^1.2",
         "yajra/laravel-datatables-buttons": "^4.8",
         "yajra/laravel-datatables-oracle": "^9.8"
     },

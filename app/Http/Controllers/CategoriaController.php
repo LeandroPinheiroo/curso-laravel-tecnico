@@ -9,6 +9,11 @@ use App\Http\Requests\StoreCategoria;
 
 class CategoriaController extends Controller
 {
+    //Construtor Classe Valida Login
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -102,6 +107,9 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        $categoria->delete();
+        return redirect()->route('categorias.index')
+                         ->withSuccess('Categoria apagada com sucesso!');
     }
 }

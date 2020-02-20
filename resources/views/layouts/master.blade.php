@@ -69,7 +69,8 @@
           <!-- Messages: style can be found in dropdown.less-->
           <!-- User Account: style can be found in dropdown.less -->
           <li>
-            <form>
+            <form action="{{ route('logout') }}" method="POST">
+              @csrf
               <button type="submit" class = "btn btn-primary" name = "logout">
                   Sair
               </button>
