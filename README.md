@@ -43,7 +43,7 @@ DB_PASSWORD=root
 
 ## Gerando Chave do aplicativo
 
-A próxima coisa que você deve fazer após configurar o arquivo .enb é definir a chave do aplicativo como uma sequência aleatória. Como instalamos o projeto via Composer, essa chave pode ser gerada pelo seguinte comando:
+A próxima coisa que você deve fazer após configurar o arquivo .env é definir a chave do aplicativo como uma sequência aleatória. Como instalamos o projeto via Composer, essa chave pode ser gerada pelo seguinte comando:
 ```
 php artisan key:generate
 ```
@@ -761,7 +761,7 @@ Route::resource('categorias','CategoriaController');
 ```
 ## Dicas de estudo
 
-Como o mini curso foi muito simples, com o tempo estipulado dá pra mostrar quase nada além de não ser possível mostrar a melhor maneira de utilizar o framework aconselho verificarem os links abaixo para aprender Laravel de verdade:
+Como o tempo estipulado para o mini curso foi extremamente curto não é possível mostrar muita coisa, além de não ser possível mostrar a melhor maneira de utilizar o framework. Com base nisso aconselho verificarem os links abaixo para aprenderem a utilizar o framework Laravel da melhor maneira:
 
 - Laravel (Grátis): https://laravel.com/docs/master/
 - Laracasts (en_US): https://laracasts.com
