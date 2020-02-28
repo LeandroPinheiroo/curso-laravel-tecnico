@@ -600,3 +600,18 @@ public function destroy($id)
                         ->withSuccess('Categoria apagada com sucesso!');
 }
 ```
+Feito isso temos um CRUD completo de categorias.
+
+## Mostrando mensagem de sucesso de ações
+Como vocês rjá devem ter reparado no nosso controller já criamos nossos retornos com mensagens de sucesso personalizadas, porém ainda não mostramos essas mensagens na view para o usuário, para fazermos isso vamos adicionar o seguinte código na nossa view index.blade.php dentro da pasta views em resources:
+
+```blade
+@if(Session::has('success'))
+	<div class="alert alert-success alert-dimissible fade show">
+		{{ Session::get('success') }}
+		<button type="button" class="close" data-dismiss='alert' arial-label="Close">
+			<span aria-hidden = "true"> &times; </span>
+		</button>
+	</div>
+@endIF
+```
