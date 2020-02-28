@@ -382,3 +382,65 @@ public function store(Request $request)
                     ->withSuccess('Categoria cadastrada');
 }
 ```
+## Criando Form Validator
+
+Com o código que temos até agora podemos salvar uma categoria no nosso Banco porém caso o usuário não informe os dados corretos não podemos salvar e temos que validar o formulário, para isso vamos criar um form validator com o seguinte comando no terminal na pasta raiz do projeto:
+
+```
+php artisan make:request StoreCategoria
+```
+Com esse comando será criado uma classe no seguinte diretorio /app/Http/Requests/StoreCategoria.php, nele vamos alterar o código para que fique da seguinte maneira:
+```php
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreCategoria extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'nome' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nome.required' => 'O nome é obrigatório'
+        ];
+    }
+}
+```
+Por fim na classe CategoriaController vamos alterar nosso método store() para a seguinte forma:
+
+```php
+public function store(StoreCategoria $request)
+{
+    $request->validated(); 
+    $categoria = new Categoria();
+    $categoria->nome = $request->input('nome');
+    $categoria->descricao = $request->descricao;
+    $categoria->save();
+
+    return redirect()->route('categorias.index')
+                    ->withSuccess('Categoria cadastrada');
+}
+```
