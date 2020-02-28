@@ -546,13 +546,57 @@ public function edit($id)
 }
 
 public function update(StoreCategoria $request, $id)
-    {
-        $categoria = Categoria::findOrFail($id);
-        $request->validated();
-        $categoria->nome = $request->nome;
-        $categoria->descricao = $request->descricao;
-        $categoria->update();
-        return redirect()->route('categorias.index')
-                         ->withSuccess('Categoria atualizada');
-    }
+{
+    $categoria = Categoria::findOrFail($id);
+    $request->validated();
+    $categoria->nome = $request->nome;
+    $categoria->descricao = $request->descricao;
+    $categoria->update();
+    return redirect()->route('categorias.index')
+                        ->withSuccess('Categoria atualizada');
+}
+```
+
+## Delete Categoria
+
+Para que possamos deletar uma categoria cadastrada vamos criar em nossa tela de index um modal para validar ao clicar no botão delete, o ideal seria criar apenas um modal e preencher os dados com javascript e ajax por exemplo, porém como nosso tempo é limitado vamos criar um modal para cada categoria cadastrada da seguinte forma:
+
+```blade
+@foreach($categorias as $categoria)
+	<form action="{{ route('categorias.destroy',$categoria->id) }}" method="POST">
+		{{ method_field('DELETE')}}
+		@csrf
+		<div class="modal fade" tabindex="-1" id="apaga{{ $categoria->id }}" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">Modal title</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p>Deseja apagar a categoria {{ $categoria->nome }}?</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="submit" class="btn btn-danger">Apagar</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</form>
+@endForeach
+```
+Vale ressaltar que essa não é uma boa abordagem pois com uma grande quantidade de itens cadastrados no nosso Banco de Dados irá demorar muito tempo para que a tela seja renderizada, porém como o tempo desse curso não favorece somos obrigados a fazer nosso delete dessa forma. :(
+
+Por fim no método destroy() dentro da classe  CategoriaController vamos alterar para a seguinte forma:
+```php
+public function destroy($id)
+{
+    $categoria = Categoria::findOrFail($id);
+    $categoria->delete();
+    return redirect()->route('categorias.index')
+                        ->withSuccess('Categoria apagada com sucesso!');
+}
 ```
