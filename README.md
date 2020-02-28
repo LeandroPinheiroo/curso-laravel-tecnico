@@ -444,3 +444,66 @@ public function store(StoreCategoria $request)
                     ->withSuccess('Categoria cadastrada');
 }
 ```
+Com isso nossa validação está finalizada de forma elegante.
+
+
+## Botões de acesso para editar e excluir uma categoria
+
+Na nossa tabela temos uma coluna para opções onde vamos criar nossos botões para editar e apagar uma categoria existente, para isso no diretorio /resource/views/categoria, vamos criar uma pasta chamadas componentes e dentro um arquivo chamado buttons_categoria.blade.php nele vamos adicionar o seguinte código:
+
+```blade
+<div class="row">
+	<div class="col-lg-6">
+		<a href="{{ route('categorias.edit',$model->id) }}" class="btn btn-primary">Editar</a>
+	</div>
+	<div class="col-lg-6">
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#apaga{{$model->id}}">
+  			Apagar
+		</button
+	</div>
+</div>
+```
+
+Agora na nossa classe de DataTables no diretório app/DataTables/CategoriaDataTable.php vamos alterar os metodos dataTable() e html() para a seguinte forma:
+
+```php
+public function dataTable($query)
+{
+    return datatables()
+        ->eloquent($query)
+        ->addColumn('action',function(Categoria $model){
+            return view(
+
+                'categoria.componentes.buttons_categoria',
+                    [ 'model' => $model ]
+
+            )->render();
+        });
+}
+
+public function html()
+{
+    return $this->builder()
+        ->columns($this->getColumns())
+        ->addAction(
+            [
+                'width' => '80px',
+                'title' => 'Opções',
+            ]
+        )
+        ->parameters(
+            ['dom' => 'Bfrtip',
+            'order' => [ [0, 'asc'] ],
+            'buttons' => [
+                'csv', 
+                'excel'
+            ],
+            'language' => [
+                    'url' => 'http://cdn.datatables.net/plug-ins/1.10.15/i18n/Portuguese-Brasil.json'
+                ]
+            ]
+        );
+}
+``` 
+Com isso na nossa tabela irá aparecer os botões responsáveis por editar e excluir uma categoria
+
