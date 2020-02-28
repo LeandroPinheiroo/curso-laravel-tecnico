@@ -10,11 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/','HomeController@index')->name('index');
-
-Route::resource('categorias','CategoriaController');
-
 Auth::routes();
 
+Route::get('/','HomeController@index')->name('index');
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('categorias','CategoriaController');
