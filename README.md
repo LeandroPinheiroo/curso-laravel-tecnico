@@ -316,3 +316,69 @@ Vale ressaltar que não devemos esquecer a importações que devem ser as seguin
 ```
 
 Feito isso ao clicar-mos no menu lateral em Categorias ou entao acessar a URL  http://127.0.0.1:8000/categorias veremos nossa tela de listagem de categorias.
+
+## Store Categorias
+
+Para criarmos o as funções para salvar uma nova categoria inicialmente vamos criar um view dentro da pasta de categoria chamada create.blade.php e vamos adicionar o seguinte código: 
+```blade
+@extends('layouts.master')
+@section('body')
+    <h1>Categoria - Criar</h1>
+    <form action="{{ route('categorias.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label>Nome</label>
+            <input type="text" class="form-control" id="nome" name = "nome" placeholder="Entre com o nome da Categoria">
+            @if($errors->get('nome'))
+                @foreach($errors->get('nome') as $error)
+                    <span class="text-danger">{{ $error }}</span>
+                @endForeach
+            @endIF
+        </div>
+        <div class="form-group">
+            <label>Descrição</label>
+            <textarea class="form-control" name="descricao" id = "descricao" placeholder="Entre com a Descrição">
+            </textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+@endSection
+```
+
+Posteriormente na view de categoria chamada index.blade.php vamos alterar o nosso form para acessar nosso controller com o botao de submit, o form deverá ficar da seguinte forma:
+
+```blade
+<form action="{{ route('categorias.create') }}">
+	@csrf
+	<div class="row">
+		<div class="col-lg-12">
+			<center>
+				<button type="submit" class="btn btn-primary">
+					Nova Categoria
+				</button>
+			</center>
+		</div>	
+	</div>
+</form>
+```
+Vale ressaltar que o token @csrf é utilizado pelo Laravel para identificar se o form que foi submetido é realmente válido.
+Por fim vamos fazer nosso método responsável por retornar a view de criação de dados, no método create() dentro da classe CategoriaController vamos adicionar o seguinte código:
+```php
+public function create()
+{
+    return view('categoria.create');
+}
+```
+Agora para finalmente salvar uma nova categoria no Banco de Dados vamos adicionar o seguinte código ao metodo store() também na classe CategoriaController:
+```php
+public function store(Request $request)
+{    
+    $categoria = new Categoria();
+    $categoria->nome = $request->input('nome');
+    $categoria->descricao = $request->descricao;
+    $categoria->save();
+
+    return redirect()->route('categorias.index')
+                    ->withSuccess('Categoria cadastrada');
+}
+```
