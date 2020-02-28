@@ -507,3 +507,52 @@ public function html()
 ``` 
 Com isso na nossa tabela irá aparecer os botões responsáveis por editar e excluir uma categoria
 
+## Update Categoria
+Como já criamos nosso botão de acesso a view de edição de categorias vamos criar no diretório /resource/views/categoria um arquivo chamado update.blade.php e vamos adicionar o seguinte código nele:
+
+```blade
+@extends('layouts.master')
+@section('body')
+    <h1>Categoria - Editar</h1>
+    <form action="{{ route('categorias.update',$categoria->id) }}" method="POST">
+        {{ method_field('PUT') }}
+        @csrf
+        <div class="form-group">
+            <label>Nome</label>
+            <input type="text" class="form-control" id="nome" name = "nome" placeholder="Entre com o nome da Categoria" value="{{ $categoria->nome }}">
+            @if($errors->get('nome'))
+                @foreach($errors->get('nome') as $error)
+                    <span class="text-danger">{{ $error }}</span>
+                @endForeach
+            @endIF
+        </div>
+        <div class="form-group">
+            <label>Descrição</label>
+            <textarea class="form-control" name="descricao" id = "descricao" placeholder="Entre com a Descrição">{{$categoria->descricao}}
+            </textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+    </form>
+@endSection
+```
+
+Agora no nosso CategoriaController vamos alterar nossos métodos edit() e update(), para que assim nossa categoria consiga ser edita.
+
+```php
+public function edit($id)
+{
+    $categoria = Categoria::findOrFail($id);
+    return view('categoria.update',['categoria'=>$categoria]);
+}
+
+public function update(StoreCategoria $request, $id)
+    {
+        $categoria = Categoria::findOrFail($id);
+        $request->validated();
+        $categoria->nome = $request->nome;
+        $categoria->descricao = $request->descricao;
+        $categoria->update();
+        return redirect()->route('categorias.index')
+                         ->withSuccess('Categoria atualizada');
+    }
+```
